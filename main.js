@@ -56,7 +56,8 @@ const descripcionproductoInput = document.getElementById('descripcionproducto');
 //Obtiene el cuerpo de la tabla de previsualizacion
 const tablaprevisualizacion = document.getElementById('tablaprevisualizacion');
 
-// Función para actualizar la tabla de previsualizacio
+
+// Función para actualizar la tabla de previsualizacion
 function actualizarTabla() {
   //crea fila de la ultima componente de la lista de productos
   var fila = document.createElement("tr");
@@ -77,9 +78,31 @@ function actualizarTabla() {
   var celda = document.createElement("td");
   celda.textContent = ProductList[i].descripcion;
   fila.appendChild(celda);
+  //agrega boton de eliminacion
+  var celda = document.createElement("td");
+  var icono = document.createElement("button");
+  icono.className = "bi bi-trash-fill";
+  icono.value = i;
+  icono.onclick = function() {eliminarelemento(fila)};
+  celda.appendChild(icono);
+  fila.appendChild(celda);
   //agrega la fila a la tabla
   tablaprevisualizacion.appendChild(fila);
 };
+
+//Eliminar elemento
+function eliminarelemento(fila){
+  i= 0;
+  lista =tablaprevisualizacion.children;
+  while (lista[i] != fila && i<lista.length){
+    i++;
+  }
+  if  (i<lista.length){
+    ProductList.splice(i,1);
+    fila.remove();
+  }
+}
+
 
 //Agrega productos a la lista al clickear el boton
 btnAgregarProducto.addEventListener('click', () => {
